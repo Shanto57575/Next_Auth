@@ -56,7 +56,7 @@ const ResetPasswordForm = () => {
                 </form>
                 </>
            }
-           {err && <h1 className="text-red-600">somthing went wrong</h1>}
+           {err && <h1 className="text-rose-600 text-xl mt-3">somthing went wrong</h1>}
        </div>
   )
 }
