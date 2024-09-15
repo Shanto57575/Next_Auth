@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
-import axios from "axios";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import axios from 'axios';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { Suspense, useEffect, useState } from 'react';
 
 const VerifyUserEmail = () => {
     const searchParams = useSearchParams();
@@ -17,10 +17,13 @@ const VerifyUserEmail = () => {
                     const response = await axios.post('/api/users/verifyemail', { token });
                     if (response) {
                         setVerified(true);
+                    } else {
+                        setVerified(false);
                     }
                 }
             } catch (error: any) {
-                console.log(error.message);
+                console.error("Verification error:", error.message);
+                setVerified(false);
             }
         };
 
@@ -28,14 +31,15 @@ const VerifyUserEmail = () => {
     }, [searchParams]);
 
     return (
-        <div className="h-screen flex flex-col items-center justify-center">
+        <Suspense>
+            <div className="h-screen flex flex-col items-center justify-center">
             <div>
                 {verified ? (
                     <div className="text-center">
                         <h1 className="bg-green-900 text-green-200 text-lg rounded px-10 py-5">
                             Email Verification Successful
                         </h1>
-                        <Link className="text-emerald-500 underline hover:text-emerald-400 text-xl mt-3" href='/login'>
+                        <Link className="text-emerald-500 underline hover:text-emerald-400 text-xl mt-3" href="/login">
                             Login Now
                         </Link>
                     </div>
@@ -44,14 +48,15 @@ const VerifyUserEmail = () => {
                         <h1 className="bg-rose-600 text-rose-100 rounded px-10 py-5 text-lg">
                             Email Verification Failed
                         </h1>
-                        <Link className="mt-4 text-blue-500 underline hover:text-blue-400 text-xl" href='/'>
+                        <Link className="mt-4 text-blue-500 underline hover:text-blue-400 text-xl" href="/">
                             Back to Home
                         </Link>
                     </div>
                 )}
             </div>
         </div>
+        </Suspense>
     );
-}
+};
 
 export default VerifyUserEmail;

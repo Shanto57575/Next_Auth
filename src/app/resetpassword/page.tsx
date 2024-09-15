@@ -2,12 +2,10 @@
 
 import axios from "axios";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation"
 import { useState } from "react";
 import Loader from "../components/Loader";
 
 const ResetPasswordForm = () => {
-    const searchParams = useSearchParams();
     const [password, setPassword] = useState("");
     const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -17,7 +15,7 @@ const ResetPasswordForm = () => {
         e.preventDefault()
         try {
             setLoading(true)
-            const token = searchParams.get('token');
+            const token = window.location.search.split("=")[1] || "";
             const data = {
                 token,
                 password
