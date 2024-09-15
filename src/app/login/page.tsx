@@ -75,7 +75,7 @@ const Login = () => {
                 <button disabled={loading} className="border w-full rounded py-2 hover:bg-zinc-700" type="submit">
                     {loading ? <Loader /> : "Login"}
                 </button>
-                <p className="mt-1 text-sm text-center">Don't have an account? <Link className="hover:underline text-blue-500" href='/signup'>Sign up</Link></p>
+                <p className="mt-1 text-sm text-center">Don&apos;t have an account? <Link className="hover:underline text-blue-500" href='/signup'>Sign up</Link></p>
             </form>
         </div>
     );
