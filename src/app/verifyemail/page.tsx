@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import axios from "axios";
 import Link from "next/link";
@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 
 const VerifyUserEmail = () => {
     const searchParams = useSearchParams();
-    const [token, setToken] = useState("");
     const [verified, setVerified] = useState(false);
 
     useEffect(() => {
@@ -18,7 +17,6 @@ const VerifyUserEmail = () => {
                     const response = await axios.post('/api/users/verifyemail', { token });
                     if (response) {
                         setVerified(true);
-                        setToken(token);
                     }
                 }
             } catch (error: any) {
