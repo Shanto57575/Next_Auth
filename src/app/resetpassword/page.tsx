@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation"
 import { useState } from "react";
 import Loader from "../components/Loader";
 
-const verifyUserEmail = () => {
+const ResetPasswordForm = () => {
     const searchParams = useSearchParams();
     const [password, setPassword] = useState("");
     const [success, setSuccess] = useState(false);
@@ -62,4 +62,4 @@ const verifyUserEmail = () => {
   )
 }
 
-export default verifyUserEmail
+export default ResetPasswordForm

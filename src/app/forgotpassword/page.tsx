@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import Loader from '../components/Loader';
 
-const ResetPassword = () => {
+const ForgotPasswordForm = () => {
     const [email, setEmail] = useState("");
     const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -47,4 +47,4 @@ const ResetPassword = () => {
   )
 }
 
-export default ResetPassword
+export default ForgotPasswordForm
