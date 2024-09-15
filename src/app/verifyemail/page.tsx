@@ -2,37 +2,42 @@
 
 import axios from 'axios';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import { Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import Loader from '../components/Loader';
 
 const VerifyUserEmail = () => {
-    const searchParams = useSearchParams();
     const [verified, setVerified] = useState(false);
+    const [token, setToken] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const emailVerification = async () => {
+        setLoading(true)
+        try {
+            await axios.post('/api/users/verifyemail', { token });
+            setLoading(false)
+            setVerified(true);
+        } catch (error: any) {
+            console.error("Verification error:", error.message);
+            setLoading(false)
+            setVerified(false);
+        }
+    };
 
     useEffect(() => {
-        const emailVerification = async () => {
-            try {
-                const token = searchParams.get('token');
-                if (token) {
-                    const response = await axios.post('/api/users/verifyemail', { token });
-                    if (response) {
-                        setVerified(true);
-                    } else {
-                        setVerified(false);
-                    }
-                }
-            } catch (error: any) {
-                console.error("Verification error:", error.message);
-                setVerified(false);
-            }
-        };
+        const urlToken = window.location.search.split("=")[1] || "";
+        setToken(urlToken);
+    }, []);
 
-        emailVerification();
-    }, [searchParams]);
+    useEffect(() => {
+        if (token.length > 0) {
+            emailVerification();
+        }
+    }, [token]);
 
     return (
-        <Suspense>
-            <div className="h-screen flex flex-col items-center justify-center">
+        <div className="h-screen flex flex-col items-center justify-center">
+            {
+                loading ? <Loader/> : 
             <div>
                 {verified ? (
                     <div className="text-center">
@@ -54,8 +59,8 @@ const VerifyUserEmail = () => {
                     </div>
                 )}
             </div>
+            }
         </div>
-        </Suspense>
     );
 };
 
